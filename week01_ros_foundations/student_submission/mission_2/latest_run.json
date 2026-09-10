@@ -1,0 +1,175 @@
+{
+  "evidence_id": "362b0669b9b0b7d9",
+  "trials": [
+    {
+      "trial_type": "straight",
+      "captured_at": "2026-09-07T08:29:28.908517+00:00",
+      "linear_x": 0.15,
+      "angular_z": 0.0,
+      "duration": 3.0,
+      "command_started_at": "2026-09-07T08:29:25.308275+00:00",
+      "zero_command_sent_at": "2026-09-07T08:29:28.358375+00:00",
+      "actual_command_duration": 3.050100552999993,
+      "duration_error": 0.05010055299999294,
+      "commanded_path_length": 0.44999999999999996,
+      "expected_linear_travel": 0.44999999999999996,
+      "observed_path_length": 0.4281749999995891,
+      "start_pose": {
+        "x": 0.625500009599315,
+        "y": 1.201256823775419e-12,
+        "theta": 1.379452108655104e-12
+      },
+      "end_pose": {
+        "x": 1.053675009598904,
+        "y": 3.1130479386645915e-12,
+        "theta": 7.63278329988142e-13
+      },
+      "displacement": 0.4281749999995891,
+      "heading_change": -6.161737786669619e-13,
+      "completed": true,
+      "stop_sent": true
+    },
+    {
+      "trial_type": "rotation",
+      "captured_at": "2026-09-07T08:31:52.673999+00:00",
+      "linear_x": 0.0,
+      "angular_z": 0.5,
+      "duration": 3.0,
+      "command_started_at": "2026-09-07T08:31:49.123784+00:00",
+      "zero_command_sent_at": "2026-09-07T08:31:52.123995+00:00",
+      "actual_command_duration": 3.000213445000554,
+      "duration_error": 0.00021344500055420212,
+      "commanded_path_length": 0.0,
+      "expected_linear_travel": 0.0,
+      "observed_path_length": 0.00016606787299546167,
+      "start_pose": {
+        "x": 1.0536750095972796,
+        "y": 3.1130479386619537e-12,
+        "theta": 5.4511950514678655e-12
+      },
+      "end_pose": {
+        "x": 1.053671565418104,
+        "y": 0.00014293242397214574,
+        "theta": 1.4434459463742273
+      },
+      "displacement": 0.000142973911266483,
+      "heading_change": 1.443445946368776,
+      "completed": true,
+      "stop_sent": true
+    },
+    {
+      "trial_type": "curve",
+      "captured_at": "2026-09-07T08:35:56.658923+00:00",
+      "linear_x": 0.15,
+      "angular_z": -0.4,
+      "duration": 4.0,
+      "command_started_at": "2026-09-07T08:35:52.108615+00:00",
+      "zero_command_sent_at": "2026-09-07T08:35:56.158713+00:00",
+      "actual_command_duration": 4.050098230999538,
+      "duration_error": 0.05009823099953792,
+      "commanded_path_length": 0.6,
+      "expected_linear_travel": 0.6,
+      "observed_path_length": 0.5785942903548864,
+      "start_pose": {
+        "x": 1.0536715654177762,
+        "y": 0.00014293242451572787,
+        "theta": 1.4434459463902656
+      },
+      "end_pose": {
+        "x": 1.4719726808888978,
+        "y": 0.31382521525940266,
+        "theta": -0.1289607231027497
+      },
+      "displacement": 0.5228502632388078,
+      "heading_change": -1.5724066694930152,
+      "completed": true,
+      "stop_sent": true
+    },
+    {
+      "trial_type": "curve_modified",
+      "captured_at": "2026-09-07T08:41:19.637094+00:00",
+      "linear_x": 0.12,
+      "angular_z": 0.6,
+      "duration": 4.0,
+      "command_started_at": "2026-09-07T08:41:15.086930+00:00",
+      "zero_command_sent_at": "2026-09-07T08:41:19.087056+00:00",
+      "actual_command_duration": 4.000127665999571,
+      "duration_error": 0.00012766599957103608,
+      "commanded_path_length": 0.48,
+      "expected_linear_travel": 0.48,
+      "observed_path_length": 0.45918462362853174,
+      "start_pose": {
+        "x": 1.4719726808902645,
+        "y": 0.3138252152587545,
+        "theta": -0.1289607230992747
+      },
+      "end_pose": {
+        "x": 1.6530095732847405,
+        "y": 0.6304587709166535,
+        "theta": 2.2015757176030846
+      },
+      "displacement": 0.3647343759181645,
+      "heading_change": 2.3305364407023594,
+      "completed": true,
+      "stop_sent": true
+    }
+  ],
+  "check": [
+    {
+      "id": "predictions",
+      "label": "Four predictions were written before running",
+      "passed": true,
+      "actual": "4 written, 4 saved",
+      "expected": "4 written and saved"
+    },
+    {
+      "id": "trials",
+      "label": "Four motion trials completed with a stop command",
+      "passed": true,
+      "actual": 4,
+      "expected": "4 of 4"
+    },
+    {
+      "id": "motion",
+      "label": "Each trial produced the expected kind of measurable motion",
+      "passed": true,
+      "actual": 4,
+      "expected": "4 of 4"
+    },
+    {
+      "id": "prediction_order",
+      "label": "Each saved prediction came before its trial",
+      "passed": true,
+      "actual": 4,
+      "expected": "4 of 4"
+    },
+    {
+      "id": "limits",
+      "label": "All commands stayed within the course speed limits",
+      "passed": true,
+      "actual": "within limits",
+      "expected": "within limits"
+    },
+    {
+      "id": "modified_settings",
+      "label": "The recorded modified curve matches the selected sliders",
+      "passed": true,
+      "actual": "matches",
+      "expected": "matches"
+    },
+    {
+      "id": "timing",
+      "label": "Timing and zero-command evidence were recorded",
+      "passed": true,
+      "actual": 4,
+      "expected": "4 of 4"
+    },
+    {
+      "id": "synthesis",
+      "label": "Three evidence-based explanations are complete",
+      "passed": true,
+      "actual": 3,
+      "expected": "3 of 3"
+    }
+  ]
+}

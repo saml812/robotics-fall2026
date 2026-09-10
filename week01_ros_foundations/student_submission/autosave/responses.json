@@ -1,0 +1,123 @@
+{
+  "checked_evidence_ids": {
+    "mission_1": "36188968644f6253",
+    "mission_2": "362b0669b9b0b7d9",
+    "mission_3": "3cd726a043be729e"
+  },
+  "completed_missions": [
+    "mission_1",
+    "mission_2",
+    "mission_3"
+  ],
+  "lab_id": "week01_ros_foundations",
+  "responses": {
+    "final.architecture_evidence": "The evidence is that the obstacle_guard node maps a single sensor input (the nearest front distance from a single LiDAR scan) to a single output (forward speed) without recording values, building a map, or looking ahead. For a hybrid system, I would add odometry\u2011based localization to estimate global position and a path planner that computes a trajectory to the goal. My reactive layer would only handle local deviations from that planned path. Having a global position on the robot will allow the robot to recover after any random collision detection happens and the path may have to be recalculated. ",
+    "final.course_reflection": "",
+    "final.hardware_next": "Simulation can be too perfect sometimes, so before deploying to real hardware, I would need to test and model latency, response time, and noise. Motors have delays, and different LiDARs have different update rates; I would edit the loop to ensure it meets real\u2011time constraints. Calibrate physical parameters such as the motor's max speed and units. That way the simulation is as realistic as it can be.",
+    "final.middleware_debugging": "The ROS graph shows every node and the topics they publish/subscribe to. If the robot doesn't move, I would run ros2 topic info /student_cmd_vel --verbose to check if /obstacle_guard is publishing. If it is, I would then check /cmd_vel to see if the guard is publishing the approved command. If the guard is subscribed but not publishing, I know the guard rejected the command. If the bridge is subscribed to /cmd_vel but in Gazebo the robot is still idle, the issue lies in the simulation bridge. The graph decouples each layer, allowing me to trace and isolate the failure to a specific component.",
+    "final.system_synthesis": "Robotics software is difficult because it must be able to process noisy, real-time sensor data, make decisions under timing constraints, and send and control physical hardware all at once. Furthermore, robotics software also needs to account for undesirable and unpredictable events, such as program crashes, through safety checks. Not everything goes to plan in the real world, and robotics software needs to be able to deal with this.\n\nThe architecture I implemented is a reactive system. The robot constantly reads LiDAR data, extracts the nearest valid front distance, and immediately makes a decision based on that value. The architecture is extremely simple and predictable; however, the trade-off is that it lacks any planning for what comes after. If I need the robot to get from point A to point B, the reactive system would fail if an obstacle is detected along the path. The robot would succeed in collision avoidance; however, it doesn't know how to resume and continue along the path.\n\nThe /ros_gz_bridge acts as the bridge between Gazebo and ROS 2. It publishes LiDAR scans on the /scan topic and odometry on /odom. The node /obstacle_guard subscribes to /scan to receive LiDAR readings. Those readings are processed through my decision functions, and the proposed driving command is published on /student_cmd_vel. The /course_cmd_vel_guard subscribes to /student_cmd_vel, takes the proposed driving command, and applies safety checks and a stale-command timeout; then it publishes the final approved command on /cmd_vel. The /ros_gz_bridge then subscribes to /cmd_vel to receive the final command and sends it back to Gazebo to move the robot in simulation.\n\nThe LiDAR often produced inf values (no obstacle within 3.5 m) or nan (no usable reading). The front_distance() function filtered these out; if the entire front distance was invalid, it returned None, causing decide_velocity() to return 0.0 (stop). This choice guarantees that the robot is always in a safe state; without filtering out inf or nan values, this could lead to the robot blindly driving into undetected obstacles. The stale\u2011command timeout (0.5 seconds) is a failsafe for when the obstacle_guard would crash mid\u2011run; the guard will publish a zero\u2011velocity command, preventing a runaway robot. The primary layer that restricts unsafe motion is the command guard (/course_cmd_vel_guard), which can reject invalid or excessive speed commands and enforce the timeout, making it the final safety\u2011critical filter before the simulator's wheels move.",
+    "final.timing_evidence": "The stale_scan scenario most affected my understanding. In simulation, if the bridge stops publishing new scans because of a crash or network lag, the guard's 0.5\u2011second timeout forces a stop. Seeing that the evaluator recorded \"stale_scan\": {\"passed\": true, \"actual\": 0.0} demonstrated that timeouts are extremely important. Without it, a frozen program would leave the robot moving indefinitely.",
+    "mission_1.command_path_explanation": "A proposed command travels on /student_cmd_vel. The guard /course_cmd_vel_guard subscribes to that topic to apply a safety check and then publishes the new command on /cmd_vel. These two topics are separate because one is for getting student commands, and the other is for filtering those commands before they reach the robot.",
+    "mission_1.graph_explanation": "A ROS 2 graph shows a map of nodes and how they communicate with each other through topics. For example, the node /ros_gz_bridge publishes distance readings on the topic /scan, and the node /course_evidence_collector subscribes to /scan to receive the readings.",
+    "mission_1.guided_checks": {
+      "bridge_info": true,
+      "command_topics": true,
+      "guard_info": true,
+      "node_list": true,
+      "scan_info": true,
+      "scan_message": true
+    },
+    "mission_1.scan_observation": "I found a couple of inf values, which represent that the sensor didn't detect any obstacle within its maximum distance of 3.5. ",
+    "mission_1.tools_explanation": "Gazebo simulates the physical environment; it deals with motion, collisions, and sensor outputs based on physics. RViz is used for visualizing ROS 2 data such as a robot's position and sensor readings.",
+    "mission_2.measurement_explanation": "For the Curve Modified trial, the estimated traveled path is 0.459 m, while the start\u2011to\u2011end distance is only 0.365 m. They describe different things because the estimated traveled path measures the entire curved arc the robot actually drove. The start\u2011to\u2011end distance measures only the straight\u2011line displacement between its starting point and its final position. Since the robot followed a curved path instead of a straight line, the straight\u2011line distance is always shorter than the actual path length.",
+    "mission_2.modified_settings": {
+      "angular_z": 0.6,
+      "duration": 4.0,
+      "linear_x": 0.12
+    },
+    "mission_2.motion_comparison": "Looking at the straight motion trial. It was pretty accurate. I predicted that the robot would move forward in a straight line, which, in fact, did happen, as the table reports 0 degrees of change in direction. The robot traveled 0.428 meters, which is fairly close to the predicted path of 0.45 m. I believe that the small difference is due to the simulation updates and timing.",
+    "mission_2.prediction_locks": {
+      "curve": "2026-09-07T08:35:34.626370+00:00",
+      "curve_modified": "2026-09-07T08:40:56.974256+00:00",
+      "rotation": "2026-09-07T08:31:30.388729+00:00",
+      "straight": "2026-09-07T08:29:05.498965+00:00"
+    },
+    "mission_2.predictions": {
+      "curve": "I predict a right-curving arc because the forward speed is positive, so the robot moves forward, and the turning speed is negative, which means the robot will rotate to the right.",
+      "curve_modified": "This curve should be tighter and turn the other way because the turning speed is positive instead of negative, so the robot will turn left instead of right. The turn radius is also smaller because the robot turns more quickly, which means that the resulting motion will be a tighter left arc.",
+      "rotation": "I predict its position will remain the same while its direction will rotate by 1.5 radians",
+      "straight": "The robot will be 0.45 meters forward relative to its starting position."
+    },
+    "mission_2.safety_explanation": "The command guard checks every proposed driving command on /student_cmd_vel before it can reach the robot. It acts like a filter that blocks any speed values that are too extreme to prevent erratic motion.\n\nThe final zero command ensures that the robot completely stops when it finishes a trial. For example, the robot reaches its position, so the final zero command will set both its forward and turning speed to zero to stop the robot from continuing. \n\nThe timeout is needed if a program crashes, freezes, or loses communication while the robot is still moving. The guard automatically sends a stop command half a second later to prevent the robot from driving uncontrollably.",
+    "mission_3.data_to_command": "The front_distance() function takes the raw LiDAR readings and calculates the angle of each reading, keeping only those for which abs(angle) <= half_width_radians, the value is finite, and the angle is greater than zero. It then returns the nearest valid distance from the list of valid LiDAR distances. \n\nThe decide_velocity will take that nearest valid distance along with stop_distance and forward speed and make a decision on whether the robot should stop or not. If the distance is None or less than or equal to the stop_distance, it returns 0.0 to stop. Otherwise, it returns the forward speed bounded between 0.0 and 0.18 m/s.\n\nEssentially,  the first function extracts a reliable measurement from noisy sensor data, and the second function translates that measurement into a concrete action.",
+    "mission_3.missing_data_safety": "The robot should stop because an invalid front measurement, such as inf or nan, does not guarantee that the space is clear. Treating them as clear would be unsafe because the robot could blindly drive into undetected obstacles.",
+    "mission_3.system_layers": "The two functions are called in the obstacle_guard.py. The ROS node obstacle_guard subscribes to the /scan topic, passing each incoming scan to the front_distance() function and then to decide_velocity() to compute a forward speed, and then publishes that speed as a Twist message on the/student_cmd_vel topic.\n\nThe command guard /course_cmd_vel_guard subscribes to the/student_cmd_vel topic to apply safety checks and then publishes the final command on /cmd_vel. The simulator bridge picks up /cmd_vel and drives the robot in Gazebo.",
+    "part_1.activity": {
+      "hardware": {
+        "changed": true,
+        "normal": true
+      },
+      "sensor": {
+        "changed": true,
+        "normal": true
+      },
+      "timing": {
+        "changed": true,
+        "normal": true
+      }
+    },
+    "part_2.activity": {
+      "behavior": {
+        "changed": true,
+        "normal": true
+      },
+      "deliberative": {
+        "changed": true,
+        "normal": true
+      },
+      "hybrid": {
+        "changed": true,
+        "normal": true
+      },
+      "reactive": {
+        "changed": true,
+        "normal": true
+      },
+      "safety": {
+        "changed": true,
+        "normal": true
+      }
+    },
+    "part_3.activity": {
+      "communication": {
+        "service": true,
+        "topic": true
+      },
+      "failure": {
+        "healthy": true,
+        "sensor": true,
+        "type": true,
+        "visualization": true
+      },
+      "inspection": {
+        "broken": true,
+        "echo": true,
+        "node_info": true,
+        "nodes": true,
+        "services": true,
+        "topic_info": true,
+        "topics": true
+      },
+      "middleware": {
+        "multiple": true,
+        "single": true
+      }
+    }
+  },
+  "schema_version": 1,
+  "student": {
+    "email": "sam.lin45@stu-mail.hunter.cuny.edu",
+    "name": "Sam Lin"
+  },
+  "updated_at": "2026-09-07T10:50:20.693760+00:00"
+}
