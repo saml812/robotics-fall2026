@@ -11,7 +11,9 @@ The evidence is that the obstacle_guard node maps a single sensor input (the nea
 
 ## final.course_reflection
 
+What stood out to me most was the stale-command timeout. Seeing that a 0.5-second delay without new commands forces the robot to stop highlights how robotics programmers must prioritize safety in ways that traditional software developers often do not. Traditional software focuses on delivering code that works, whereas software in robotics must not only work correctly but also include safeguards so that if something goes wrong, the robot does not act unpredictably and cause physical harm. This also makes me realize that when I write code, I should not just focus on accomplishing a task but also consider the potential errors that can happen and ways to prevent or stop them.
 
+Overall, this activity strengthened my desire to build intelligent and safe robotic systems. It reminded me that good engineering isn’t just about making things work; it’s about making them work safely.
 
 ## final.hardware_next
 

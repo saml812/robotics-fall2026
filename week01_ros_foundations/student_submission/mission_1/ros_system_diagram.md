@@ -8,7 +8,7 @@ flowchart LR
   n3["/robot_state_publisher"]
   n4["/ros_gz_bridge"]
   n5["/rviz2"]
-  n6["/transform_listener_impl_630bee92f6c0"]
+  n6["/transform_listener_impl_62710753c480"]
   t0(["/cmd_vel<br/>TwistStamped"])
   n0 -->|publishes| t0
   t0 -->|subscribes| n4

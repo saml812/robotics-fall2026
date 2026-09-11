@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "lab_id": "week01_ros_foundations",
+  "generated_at": "2026-09-11T01:27:11.685826+00:00",
+  "student": {
+    "name": "Sam Lin",
+    "email": "sam.lin45@stu-mail.hunter.cuny.edu"
+  },
+  "completed_missions": [
+    "mission_1",
+    "mission_2",
+    "mission_3"
+  ],
+  "checked_evidence_ids": {
+    "mission_1": "72b80bf8cf87cd55",
+    "mission_2": "362b0669b9b0b7d9",
+    "mission_3": "3cd726a043be729e"
+  },
+  "files": [
+    ".gitkeep",
+    "autosave/responses.json",
+    "autosave/responses.md",
+    "final_reflection.md",
+    "foundations.md",
+    "mission_1/explanation.md",
+    "mission_1/latest_run.json",
+    "mission_1/ros_system_diagram.md",
+    "mission_1/submission.json",
+    "mission_2/explanation.md",
+    "mission_2/latest_run.json",
+    "mission_2/submission.json",
+    "mission_3/explanation.md",
+    "mission_3/latest_run.json",
+    "mission_3/source/package.xml",
+    "mission_3/source/setup.cfg",
+    "mission_3/source/setup.py",
+    "mission_3/source/test/test_decision.py",
+    "mission_3/source/test/test_student_decision.py",
+    "mission_3/source/week01_behavior/decision.py",
+    "mission_3/source/week01_behavior/obstacle_guard.py",
+    "mission_3/submission.json",
+    "student.json"
+  ]
+}
