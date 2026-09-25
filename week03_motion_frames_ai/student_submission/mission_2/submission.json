@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "lab_id": "week03_motion_frames_ai",
+  "mission_id": "mission_2",
+  "saved_at": "2026-09-25T05:52:59.600703+00:00",
+  "evidence": {
+    "evidence_id": "e14b9dfbcd4d7bc0",
+    "snapshot": {
+      "schema_version": 2,
+      "captured_at": "2026-09-24T21:59:24.306613+00:00",
+      "frames": [
+        "odom",
+        "base_link",
+        "base_scan",
+        "rear_camera_link",
+        "hall_camera"
+      ],
+      "frame_chain": [
+        "hall_camera",
+        "odom",
+        "base_link",
+        "base_scan",
+        "rear_camera_link"
+      ],
+      "transforms": {
+        "base_scan_to_base_link": {
+          "translation": {
+            "x": -0.032,
+            "y": 0.0,
+            "z": 0.172
+          },
+          "yaw": 0.0
+        },
+        "rear_camera_to_base_link": {
+          "translation": {
+            "x": -0.18,
+            "y": 0.0,
+            "z": 0.22
+          },
+          "yaw": -3.1415926535795866
+        },
+        "hall_camera_to_base_link": {
+          "translation": {
+            "x": 0.14784118470987123,
+            "y": 2.646533584133875,
+            "z": 1.1900000000000002
+          },
+          "yaw": -1.607543571609847
+        }
+      },
+      "point_prompts": {
+        "hall_camera_point": "Transform point (0.5, 0.0, 0.0) from hall_camera to base_link."
+      },
+      "transformed_points": {
+        "scan_point_in_base": {
+          "x": 0.968,
+          "y": 0.0
+        },
+        "rear_camera_point_in_base": {
+          "x": -1.18,
+          "y": -1.0206624774663903e-11
+        },
+        "hall_camera_point_in_base": {
+          "x": 0.1294716971906704,
+          "y": 2.1468711361469546
+        }
+      },
+      "source": "live"
+    },
+    "camera_evaluation": {
+      "captured_at": "2026-09-25T05:48:38.397307+00:00",
+      "source_sha256": "72c2b4fe828540d8dd7840e5be1898bbc9ef92bc51cb599d610fcf0b84b257f7",
+      "file_present": true,
+      "unit_tests_passed": true,
+      "test_count": 5,
+      "unit_test_output": "test_rejects_wrong_source_frame (test_camera_transform.CameraTransformTests.test_rejects_wrong_source_frame) ... ok\ntest_source_does_not_publish_motion (test_camera_transform.CameraTransformTests.test_source_does_not_publish_motion) ... ok\ntest_unavailable_transform_returns_none (test_camera_transform.CameraTransformTests.test_unavailable_transform_returns_none) ... ok\ntest_uses_buffer_result_including_rotation (test_camera_transform.CameraTransformTests.test_uses_buffer_result_including_rotation) ... ok\ntest_uses_camera_as_source_and_body_as_target (test_camera_transform.CameraTransformTests.test_uses_camera_as_source_and_body_as_target) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.004s\n\nOK\n",
+      "live": {
+        "passed": true,
+        "source": "hall_camera",
+        "target": "base_link",
+        "point": {
+          "x": -9.602645692060353e-09,
+          "y": -1.5,
+          "z": 1.19
+        },
+        "error": ""
+      },
+      "live_passed": true,
+      "source_differs_from_original": true
+    },
+    "live_verification_pending": false,
+    "check": [
+      {
+        "id": "snapshot",
+        "label": "Frame snapshot selected",
+        "passed": true,
+        "actual": "live",
+        "expected": "live or reference"
+      },
+      {
+        "id": "original",
+        "label": "Initial AI response preserved",
+        "passed": true,
+        "actual": "preserved",
+        "expected": "preserved"
+      },
+      {
+        "id": "file",
+        "label": "Camera transform implementation found",
+        "passed": true,
+        "actual": true,
+        "expected": "true"
+      },
+      {
+        "id": "fresh",
+        "label": "Evaluation matches current implementation",
+        "passed": true,
+        "actual": "current",
+        "expected": "current"
+      },
+      {
+        "id": "tests",
+        "label": "Course camera-transform tests pass",
+        "passed": true,
+        "actual": 5,
+        "expected": ">=5 passing"
+      },
+      {
+        "id": "revision",
+        "label": "Implementation revised from initial AI code",
+        "passed": true,
+        "actual": true,
+        "expected": "true"
+      },
+      {
+        "id": "live",
+        "label": "Live transform verified or documented pending",
+        "passed": true,
+        "actual": "verified",
+        "expected": "verified or documented pending"
+      },
+      {
+        "id": "analysis",
+        "label": "Frame, AI, test, and consequence analysis complete",
+        "passed": true,
+        "actual": "complete",
+        "expected": "complete"
+      }
+    ]
+  }
+}

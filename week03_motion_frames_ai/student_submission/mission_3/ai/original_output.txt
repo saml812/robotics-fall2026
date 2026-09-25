@@ -1,0 +1,9 @@
+Assumptions: Segment is already defined in pattern.py with fields linear_x, angular_z, and duration. The wrapper repeatedly publishes each returned segment for its duration, then sends zero velocity. I will not modify the wrapper or the course checks.
+
+Geometry: Radius R = 0.30 m. Angular speed magnitude |ω| = 0.70 rad/s. Linear speed v = R|ω| = 0.30 × 0.70 = 0.21 m/s, which is within 0.22 m/s. Each turn angle is π/4 rad, so each segment duration is (π/4)/0.70 ≈ 1.121997 s. Four segments give total duration ≈ 4.48799 s, within 60 s. Each segment is within 30 s.
+
+The four segments are: forward left +45°, forward right -45°, forward left +45°, forward right -45°. Because the angular speeds are equal and opposite in pairs, the net heading change is zero, so the final heading equals the initial heading.
+
+Unknown pattern names raise ValueError. The returned list contains exactly four Segment objects in the required order. No intermediate zero-velocity stop is inserted because the wrapper only sends zero at the end; the sign change between segments is handled by the next segment’s angular_z.
+
+Proposed tests: check len(segments) == 4; check each duration > 0 and ≤ 30; check total duration ≤ 60; check abs(segment.linear_x) ≤ 0.22; check abs(segment.angular_z) ≤ 0.80; check linear_x == 0.21 for all; check angular_z sequence is [+0.70, -0.70, +0.70, -0.70]; check radius = linear_x / abs(angular_z) = 0.30 for all; check total heading change sums to 0; check unknown pattern raises ValueError.
