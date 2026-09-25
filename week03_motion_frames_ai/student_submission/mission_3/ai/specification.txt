@@ -1,0 +1,9 @@
+Robot body frame is +x forward, +y left. Heading θ is measured from world +x; positive angular velocity means turning left/CCW. 
+
+All arcs are driven forward, so linear speed is positive along body +x. Initial pose: Start at (x,y,θ)=(0.50,0.50,0)m, rad inside a 2m×2m area, facing +x. 
+Intended sequence: The robot drives four forward circular arcs, each with radius R = 0.30 m.
+
++45°, −45°, +45°, −45°, so the robot finishes facing the initial direction; use |ω|=0.70 rad/s and 
+v=R|ω|=0.21 m/s, giving each arc duration (π/4)/0.70≈1.122 s and total time≈4.488 s, all within the 0.22 m/s, 0.80 rad/s, 30 s per segment, and 60 s total limits. The robot runs  these arcs back-to-back without full stops by switching the sign of angular velocity at each boundary; after the fourth arc, command v=0 and ω=0 and hold the final pose briefly
+
+Measurable success criteria are: each measured arc radius within 0.02 m of 0.30 m, each turn within 0.04 rad of 45°, each intended arc distance within 0.02 m of 0.235619 m, final heading within 0.04 rad of the initial heading, final relative displacement within course tolerance of (0.848528, 0.351472) m, live checkpoints within 0.15 m and 0.20 rad, and all speeds and durations within the stated limits.

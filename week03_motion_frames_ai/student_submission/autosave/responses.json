@@ -1,9 +1,13 @@
 {
   "checked_evidence_ids": {
-    "mission_1": "5c195f75367f873e"
+    "mission_1": "5c195f75367f873e",
+    "mission_2": "e14b9dfbcd4d7bc0",
+    "mission_3": "176f86f1a7db3365"
   },
   "completed_missions": [
-    "mission_1"
+    "mission_1",
+    "mission_2",
+    "mission_3"
   ],
   "content_version": 2,
   "lab_id": "week03_motion_frames_ai",
@@ -101,6 +105,8 @@
       "schema_version": 2,
       "scope": "live"
     },
+    "final.course_reflection": "This activity made me think about how robotics is never just about code. I enjoyed the precision of specifying arcs, deriving speeds, and writing tests, but the sociotechnical question was the most memorable. It reminded me that a robot\u2019s success depends on how people interpret its motion, not just on whether its odometry is accurate. Connecting technical work with human and ethical considerations is important otherwise, we build systems that are correct in isolation but fail in context. This activity reinforces that engineering decisions are also social decisions, and that testing should include people, not just parameters.",
+    "final.synthesis": "A robot motion program can be technically correct yet fail sociotechnically. For example, a delivery robot in a hospital corridor may execute its alternating arcs perfectly, but if it does not signal intent or yield, it can startle or block nurses, patients, or wheelchair users. The code passes all geometric and velocity tests, yet the robot disrupts shared-space norms. To evaluate this, we need additional evidence: observations of human-robot encounters, interviews with staff about predictability and accessibility, and compliance checks against shared-space rules. We also need to know whether the robot\u2019s behavior matches pedestrian expectations\u2014does it slow down, signal turns, or make its path legible? Technical metrics alone cannot capture whether the robot is socially acceptable or safe in practice. Sociotechnical evaluation therefore requires human-centered data, not just parameter checks.",
     "mission_1.attempts": [
       {
         "captured_at": "2026-09-24T20:41:15.129213+00:00",
@@ -7734,8 +7740,14 @@
     "mission_2.live_issue": "",
     "mission_2.live_pending": false,
     "mission_2.snapshot": {
-      "captured_at": "2026-09-24T21:45:15.466273+00:00",
-      "description": "Instructor-defined frame geometry. No live ROS transforms were measured.",
+      "captured_at": "2026-09-24T21:59:24.306613+00:00",
+      "frame_chain": [
+        "hall_camera",
+        "odom",
+        "base_link",
+        "base_scan",
+        "rear_camera_link"
+      ],
       "frames": [
         "odom",
         "base_link",
@@ -7743,23 +7755,41 @@
         "rear_camera_link",
         "hall_camera"
       ],
-      "source": "reference",
+      "point_prompts": {
+        "hall_camera_point": "Transform point (0.5, 0.0, 0.0) from hall_camera to base_link."
+      },
+      "schema_version": 2,
+      "source": "live",
+      "transformed_points": {
+        "hall_camera_point_in_base": {
+          "x": 0.1294716971906704,
+          "y": 2.1468711361469546
+        },
+        "rear_camera_point_in_base": {
+          "x": -1.18,
+          "y": -1.0206624774663903e-11
+        },
+        "scan_point_in_base": {
+          "x": 0.968,
+          "y": 0.0
+        }
+      },
       "transforms": {
         "base_scan_to_base_link": {
           "translation": {
-            "x": 0.2,
+            "x": -0.032,
             "y": 0.0,
-            "z": 0.14
+            "z": 0.172
           },
           "yaw": 0.0
         },
         "hall_camera_to_base_link": {
           "translation": {
-            "x": -1.5,
-            "y": 0.5,
-            "z": 1.2
+            "x": 0.14784118470987123,
+            "y": 2.646533584133875,
+            "z": 1.1900000000000002
           },
-          "yaw": -1.5707963267948966
+          "yaw": -1.607543571609847
         },
         "rear_camera_to_base_link": {
           "translation": {
@@ -7767,11 +7797,24 @@
             "y": 0.0,
             "z": 0.22
           },
-          "yaw": 3.141592653589793
+          "yaw": -3.1415926535795866
         }
       }
     },
-    "mission_2.synthesis": "",
+    "mission_2.synthesis": "The first AI response created the frame names and never validated them; it built a new PointStamped that removed the detection's real frame and timestamp, used \"now\" instead of the observation time, it also started its own listener and looked up before the buffer had data, and hard-coded offsets and timeouts with no awareness of robot motion. The improved prompt fixed each of these assumptions. For example, the source frame must be exactly hall_camera, or it raises ValueError; the target is fixed as base_link rather than a default; the original point with its own header.stamp goes straight into the caller-supplied tf_buffer so the lookup happens at observation time, tf2_geometry_msgs is imported so PointStamped is registered with tf2, no publishers or velocity topics are created, and an unavailable transform returns None. If the wrong transform were used around people, a detected person would appear in the wrong place in the robot's frame \u2014 reported to the side when they are actually in front \u2014 and the robot would drive toward the space it believes is clear and hit them, with nothing erroring because the coordinates look plausible. The rotated-coordinates test is what detects this, since a wrong frame, wrong target, hard-coded offset, or wrong-time lookup all yield the wrong numbers, while the camera-source and body-target tests catch the invented frame names and the unavailable-transform test catches any false data. When transform data is unavailable, the robot should return None and command no motion, never invent a point or fall back to stale data, with ValueError reserved for a wrong frame and None for a missing transform.",
+    "mission_3.ai_disclosure": "I used the AI assistant, DeepSeek, to draft the initial build_pattern implementation, propose the student tests, explain Python syntax such as list[Segment] and Segment(...), and to identify possible omissions and errors. I personally reviewed the generated code and kept the supplied Segment class unchanged. I added import math, added the ValueError guard for unknown pattern names, derived omega = 0.70 rad/s, v = R * omega = 0.21 m/s, and duration = (\u03c0/4) / omega \u2248 1.121997 s, and kept the segment order [+\u03c9, \u2212\u03c9, +\u03c9, \u2212\u03c9]. I did not add a final stop segment because the wrapper publishes the final zero and the evaluator verifies it. I wrote and saved test/test_student_pattern.py with two tests: one for geometry and limits, one for order and no-stop-segment behavior. I ran the python3 scripts/evaluate_ai_pattern.py and verified the reported results.",
+    "mission_3.assigned_pattern": "alternating_arcs",
+    "mission_3.assumptions": "The AI assumed that the robot body frame has +x forward, +y left, and positive angular_z meaning a left turn. It assumed the units to be m/s for linear_x, rad/s for angular_z, and seconds for duration. If asked to explain unfamiliar syntax, the assistant would say that list[Segment] is a Python type hint and Segment(...) constructs the existing data object using keyword arguments.\n\nThe AI assumed that Segment is already defined or imported in pattern.py, that pattern_node.py repeatedly publishes each segment for its full duration and then sends zero velocity, and that positive angular velocity is left. The AI assumed that each segment is positive and at most 30 s, and the total time is at most 60 s.",
+    "mission_3.evidence_analysis": "The important tests establish that the implementation matches the assigned alternating-arcs pattern. pattern.py implementation was found, and test/test_student_pattern.py was found to have passed, so the required files exist. Student test methods reported 2 found; 2 required, so my two pattern-specific tests were discovered. All automated tests reported 9 passing; 9 required, so the seven tests plus my two student tests all passed. Assigned geometry passed, confirming the four +45\u00b0, \u221245\u00b0, +45\u00b0, \u221245\u00b0 arcs, radius 0.30 m, and final heading matched the specification. Command limits passed, confirming |v| \u2264 0.22 m/s, |\u03c9| \u2264 0.80 rad/s, each segment \u2264 30 s, and total \u2264 60 s. Stop decision passed, confirming the wrapper owns the final stop. Live motion and stop passed, which confirms the simulated motion-and-stop check matched.\n\nMy geometry test checked four segments, forward speed, radius R = |v/\u03c9| = 0.30 m, angle |\u03c9\u00b7t| = \u03c0/4 rad, arc length \u2248 0.235619 m, speed and duration bounds, total time, and net heading change of zero. My order test checked the sign sequence [+, \u2212, +, \u2212], equal angular magnitudes, equal forward speed of 0.21 m/s, and no zero/zero stop segment. Together, they show the path is ordered correctly, each arc has the required radius and angle, the robot finishes facing its initial direction, and the stop is not duplicated.\n\nThese tests do not establish real-world repeatability. They do not show that wheel slip, latency, acceleration limits, floor friction, or calibration will keep every real run within the course tolerances of 0.02 m radius, 0.04 rad angle, and 0.02 m distance. The Live motion and stop pass is one run, not many. They also do not verify a full 1 s final hold, because build_pattern intentionally omits a stop segment and relies on the wrapper.\n\nOne additional test I would need is a repeated real-robot or high-fidelity simulation run with odometry logging: after each segment, compute best-fit radius, turn angle, and arc length; after the fourth, verify final heading and position; and confirm zero velocity is commanded for at least 1 s. Repeat several times to check drift and tolerance margins.",
+    "mission_3.live_pending": false,
+    "mission_3.modifications": "I added the pattern-name guard: if pattern_name != \"alternating_arcs\": raise ValueError(...) to satisfy the requirement to reject unknown names, rather than silently returning an empty list or the wrong pattern. I chose omega = 0.70 rad/s and derived v = radius * omega = 0.21 m/s instead of hard-coding v = 0.21, so that the radius relationship R = |v/\u03c9| stays exact. I derived duration = (\u03c0/4) / 0.70 \u2248 1.121997 s from t = |\u0394\u03b8/\u03c9| rather than typing the decimal, so the duration follows directly from the stated relationship. I did not add a final zero-velocity segment because the wrapper publishes the stop and the evaluator verifies it, and adding one here would double-count the stop.",
+    "mission_3.original_output": "Assumptions: Segment is already defined in pattern.py with fields linear_x, angular_z, and duration. The wrapper repeatedly publishes each returned segment for its duration, then sends zero velocity. I will not modify the wrapper or the course checks.\n\nGeometry: Radius R = 0.30 m. Angular speed magnitude |\u03c9| = 0.70 rad/s. Linear speed v = R|\u03c9| = 0.30 \u00d7 0.70 = 0.21 m/s, which is within 0.22 m/s. Each turn angle is \u03c0/4 rad, so each segment duration is (\u03c0/4)/0.70 \u2248 1.121997 s. Four segments give total duration \u2248 4.48799 s, within 60 s. Each segment is within 30 s.\n\nThe four segments are: forward left +45\u00b0, forward right -45\u00b0, forward left +45\u00b0, forward right -45\u00b0. Because the angular speeds are equal and opposite in pairs, the net heading change is zero, so the final heading equals the initial heading.\n\nUnknown pattern names raise ValueError. The returned list contains exactly four Segment objects in the required order. No intermediate zero-velocity stop is inserted because the wrapper only sends zero at the end; the sign change between segments is handled by the next segment\u2019s angular_z.\n\nProposed tests: check len(segments) == 4; check each duration > 0 and \u2264 30; check total duration \u2264 60; check abs(segment.linear_x) \u2264 0.22; check abs(segment.angular_z) \u2264 0.80; check linear_x == 0.21 for all; check angular_z sequence is [+0.70, -0.70, +0.70, -0.70]; check radius = linear_x / abs(angular_z) = 0.30 for all; check total heading change sums to 0; check unknown pattern raises ValueError.",
+    "mission_3.original_prompt": "This is a ROS 2 Jazzy Python package. Implement only build_pattern(pattern_name: str) -> list[Segment] for 'alternating_arcs' in the existing pattern.py.\nThe course-provided pattern_node.py calls this function, publishes the returned segments repeatedly through /student_cmd_vel, and sends the final zero command.\nUse the existing Segment class with linear_x (m/s), angular_z (rad/s), and duration (s).\nReturn the ordered segments for the assigned specification and raise ValueError for an unknown pattern name.\nStay within 0.22 m/s, 0.80 rad/s, 30 seconds per segment, and 60 seconds total.\nDo not replace the wrapper or course checks. Explain assumptions and propose tests.\n\nSpecification:\nStart at (0.50, 0.50, 0) m/rad, at rest, in a clear 2 m by 2 m area. Robot body frame: +x forward, +y left; positive angular velocity turns left. Drive four forward circular arcs of radius 0.30 m: +45\u00b0, -45\u00b0, +45\u00b0, -45\u00b0. Finish facing the initial direction. Use angular speed \u00b10.70 rad/s and linear speed 0.21 m/s. Each arc duration = (pi/4)/0.70 \u2248 1.121997 s. Total \u2248 4.488 s. Execute arcs back-to-back, switching angular velocity sign at boundaries; after the fourth arc, command zero and hold. Limits: |v|\u22640.22 m/s, |\u03c9|\u22640.80 rad/s, each segment \u226430 s, total \u226460 s. Success: each arc radius within 0.02 m of 0.30 m, each turn within 0.04 rad of 45\u00b0, each arc distance within 0.02 m of 0.235619 m, final heading within 0.04 rad of the initial heading, live checkpoints within 0.15 m and 0.20 rad.",
+    "mission_3.original_source": "import math\n\ndef build_pattern(pattern_name: str) -> list[Segment]:\nif pattern_name != \"alternating_arcs\":\nraise ValueError(f\"Unknown pattern name: {pattern_name!r}\")\n\nradius = 0.30\nangular_speed = 0.70\nlinear_speed = radius * angular_speed\narc_angle = math.pi / 4.0\nduration = arc_angle / angular_speed\n\nreturn [\nSegment(linear_x=linear_speed, angular_z=angular_speed, duration=duration),\nSegment(linear_x=linear_speed, angular_z=-angular_speed, duration=duration),\nSegment(linear_x=linear_speed, angular_z=angular_speed, duration=duration),\nSegment(linear_x=linear_speed, angular_z=-angular_speed, duration=duration),\n]",
+    "mission_3.problems": "One omission is that the generated code does not include an explicit final hold segment. The specification says to hold the final pose briefly, at least 1 s, but the code relies on the wrapper\u2019s final zero command. If the wrapper does not hold zero for at least 1 s, we need to add a final Segment(linear_x=0.0, angular_z=0.0, duration=1.0). \nI also checked the code to ensure that Segment must be in scope, or the code raises a NameError. The sign convention for angular_z is assumed rather than verified.\nThe numerical values are correct: |v| = 0.21 \u2264 0.22, |\u03c9| = 0.70 \u2264 0.80, each duration 1.121997 \u2264 30, and total 4.48799 \u2264 60.",
+    "mission_3.saved_specification": "Robot body frame is +x forward, +y left. Heading \u03b8 is measured from world +x; positive angular velocity means turning left/CCW. \n\nAll arcs are driven forward, so linear speed is positive along body +x. Initial pose: Start at (x,y,\u03b8)=(0.50,0.50,0)m, rad inside a 2m\u00d72m area, facing +x. \nIntended sequence: The robot drives four forward circular arcs, each with radius R = 0.30 m.\n\n+45\u00b0, \u221245\u00b0, +45\u00b0, \u221245\u00b0, so the robot finishes facing the initial direction; use |\u03c9|=0.70 rad/s and \nv=R|\u03c9|=0.21 m/s, giving each arc duration (\u03c0/4)/0.70\u22481.122 s and total time\u22484.488 s, all within the 0.22 m/s, 0.80 rad/s, 30 s per segment, and 60 s total limits. The robot runs  these arcs back-to-back without full stops by switching the sign of angular velocity at each boundary; after the fourth arc, command v=0 and \u03c9=0 and hold the final pose briefly\n\nMeasurable success criteria are: each measured arc radius within 0.02 m of 0.30 m, each turn within 0.04 rad of 45\u00b0, each intended arc distance within 0.02 m of 0.235619 m, final heading within 0.04 rad of the initial heading, final relative displacement within course tolerance of (0.848528, 0.351472) m, live checkpoints within 0.15 m and 0.20 rad, and all speeds and durations within the stated limits.",
+    "mission_3.specification": "Robot body frame is +x forward, +y left. Heading \u03b8 is measured from world +x; positive angular velocity means turning left/CCW. \n\nAll arcs are driven forward, so linear speed is positive along body +x. Initial pose: Start at (x,y,\u03b8)=(0.50,0.50,0)m, rad inside a 2m\u00d72m area, facing +x. \nIntended sequence: The robot drives four forward circular arcs, each with radius R = 0.30 m.\n\n+45\u00b0, \u221245\u00b0, +45\u00b0, \u221245\u00b0, so the robot finishes facing the initial direction; use |\u03c9|=0.70 rad/s and \nv=R|\u03c9|=0.21 m/s, giving each arc duration (\u03c0/4)/0.70\u22481.122 s and total time\u22484.488 s, all within the 0.22 m/s, 0.80 rad/s, 30 s per segment, and 60 s total limits. The robot runs  these arcs back-to-back without full stops by switching the sign of angular velocity at each boundary; after the fourth arc, command v=0 and \u03c9=0 and hold the final pose briefly\n\nMeasurable success criteria are: each measured arc radius within 0.02 m of 0.30 m, each turn within 0.04 rad of 45\u00b0, each intended arc distance within 0.02 m of 0.235619 m, final heading within 0.04 rad of the initial heading, final relative displacement within course tolerance of (0.848528, 0.351472) m, live checkpoints within 0.15 m and 0.20 rad, and all speeds and durations within the stated limits.",
+    "mission_3.test_plan": "Before running, a pattern behavior test should call build_pattern(\"alternating_arcs\") and expect exactly four segments, all with linear_x = 0.21, an angular_z sequence [+0.70, \u22120.70, +0.70, \u22120.70], each duration of about 1.121997 s, each radius of 0.30 m, and a net heading change of zero. Expected result: pass. \n\nA velocity-limit test should assert every abs(linear_x) \u2264 0.22, every abs(angular_z) \u2264 0.80, every duration > 0 and \u2264 30, and total duration \u2264 60. Expected result: pass with values 0.21, 0.70, 1.121997, and 4.48799. \n\nA stop test should verify that after the fourth segment, the wrapper publishes zero velocity, with expected final command linear_x = 0.0 and angular_z = 0.0. If a 1 s hold is required, the current generated code alone does not provide it, so the test should confirm that the wrapper holds zero velocity, or the code should add the final zero-velocity segment.",
     "walkthrough.completed": [
       0,
       1,
@@ -7799,19 +7842,21 @@
     ]
   },
   "schema_version": 1,
-  "stage": "preflight",
+  "stage": "final",
   "student": {
     "course_id": "sam.lin45@stu",
     "email": "sam.lin45@@stu-mail.hunter.cuny.edu",
     "name": "Sam Lin"
   },
-  "updated_at": "2026-09-25T04:56:15.273918+00:00",
+  "updated_at": "2026-09-25T21:29:18.323665+00:00",
   "visited_stages": [
     "intro",
     "concepts",
     "preflight",
     "mission_1",
-    "mission_2"
+    "mission_2",
+    "mission_3",
+    "final"
   ],
-  "walkthrough_index": 0
+  "walkthrough_index": 2
 }
