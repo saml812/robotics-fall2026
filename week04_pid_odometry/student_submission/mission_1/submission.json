@@ -1,0 +1,38 @@
+{
+  "schema_version": 2,
+  "created_at": "2026-10-01T06:08:56",
+  "mission_id": "mission_1",
+  "student": {
+    "name": "Sam Lin",
+    "student_id": "24433945",
+    "section": ""
+  },
+  "explanations": {
+    "prediction": "With too little Kp, I expect the arm to respond sluggishly and slowly: it will move slowly toward the target, may never reach it, and will likely stop short. With too little Kd, I expect the arm to overshoot the target and oscillate around it. The motion will be underdamped, so it should take a longer time to settle.",
+    "tuning_analysis": "I predicted that too little Kp would make the arm sluggish and leave it short of the target, while too little Kd would cause overshoot and oscillation. That matched the testing: with low Kp = 1.0, the shoulder sagged and held a steady error, and with low Kd = 0.6, both joints oscillated around the target before settling. I changed both controllers to Kp = 6.0, Ki = 0.9, Kd = 1.3 separately, one at a time. Raising Kp\u200b made each joint move faster; increasing Kd \u200bdamped the overshoot and made it settle faster, and the small Ki\u200b corrected the remaining steady offset such that the tip gap showed 0px.\nGravity compensation made it much faster for both joints to settle. It reduced the steady command needed to hold the second link, so the shoulder no longer sagged under gravity and needed less integral action to correct the error."
+  },
+  "params": {
+    "activity": "two_link_arm_pid_tuning",
+    "kp1": 6,
+    "ki1": 0.9,
+    "kd1": 1.3,
+    "kp2": 6,
+    "ki2": 0.9,
+    "kd2": 1.2,
+    "gravityCompensation": true
+  },
+  "metrics": {
+    "completed": true,
+    "posesHeld": 3,
+    "posesRequired": 3
+  },
+  "checkin": {
+    "note": "I predicted that too little Kp would make the arm sluggish and leave it short of the target, while too little Kd would cause overshoot and oscillation. That matched the testing: with low Kp = 1.0, the shoulder sagged and held a steady error, and with low Kd = 0.6, both joints oscillated around the target before settling. I changed both controllers to Kp = 6.0, Ki = 0.9, Kd = 1.3 separately, one at a time. Raising Kp\u200b made each joint move faster; increasing Kd \u200bdamped the overshoot and made it settle faster, and the small Ki\u200b corrected the remaining steady offset such that the tip gap showed 0px.\nGravity compensation made it much faster for both joints to settle. It reduced the steady command needed to hold the second link, so the shoulder no longer sagged under gravity and needed less integral action to correct the error.",
+    "choice": "",
+    "complete": true
+  },
+  "csv_files": {},
+  "activity_gifs": [
+    "latest_arm_tuning.gif"
+  ]
+}

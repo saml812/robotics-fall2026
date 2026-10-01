@@ -1,0 +1,36 @@
+{
+  "schema_version": 2,
+  "created_at": "2026-10-01T06:12:28",
+  "mission_id": "mission_2",
+  "student": {
+    "name": "Sam Lin",
+    "student_id": "24433945",
+    "section": ""
+  },
+  "explanations": {
+    "prediction": "The estimated forward distance will be larger than the actual forward motion, so x will be overestimated. The estimated sideways distance will be smaller than the actual strafe motion, so y will be underestimated.\nIn other words, the robot will think it moved farther forward and less sideways than it really did.",
+    "calibration_analysis": "I predicted that with the forward pod scale too large and the strafe pod scale too small, the estimate would overestimate forward motion and underestimate sideways motion, so the final pose would be skewed in x and y.\n\nThe forward scale changed how many inches are assigned to each forward-pod tick. Increasing it made the robot estimate more forward travel per tick, while decreasing it made the estimate smaller. In the test, with both pods at 0.0500 in/tick, the odom pose matched the true pose (60.0, 23.2) and the error was 0.0 in.\n\nThe sideways pod is needed because this is a holonomic robot, meaning it can move in all directions without needing to change heading. A forward-only odometry pod cannot measure that sideways motion, so without the perpendicular pod, the y estimate would be wrong.\n\nRemaining drift can still happen after calibration because wheel slip, floor friction, uneven surfaces, sensor noise, and small nonlinearities mean the real distance per tick is not perfectly constant. The test showed a max error of 0.00 in and a final error of 0.00 in, so the calibration was perfect, but in general, some drift can remain because odometry is only an estimate that accumulates error over time."
+  },
+  "params": {
+    "forwardInPerTick": 0.05,
+    "strafeInPerTick": 0.05
+  },
+  "metrics": {
+    "max_error_in": 0.0,
+    "final_error_in": 0.0,
+    "passed": true
+  },
+  "result": {
+    "passed": true,
+    "maxError": 0,
+    "finalError": 0,
+    "params": {
+      "forwardInPerTick": 0.05,
+      "strafeInPerTick": 0.05
+    }
+  },
+  "csv_files": {},
+  "activity_gifs": [
+    "latest_odometry_test.gif"
+  ]
+}

@@ -1,0 +1,105 @@
+# Autosaved responses
+
+- Name: Sam Lin
+- Student ID: 24433945
+- Section: (not provided)
+
+## Check-in answers
+
+### background_compare
+
+The engineer chooses the gains Kp, Ki, and Kd, which determine how the controller reacts to the current error, accumulated residual error, and rate of change of error. Kp responds to the present error, Ki removes steady-state offset by integrating past error, and Kd damps overshoot by reacting to how fast the error is changing.  PID is a feedback controller because it continuously measures the actual output, computes the error, and adjusts the command based on that measurement instead of running an open loop.
+
+### background_social
+
+For anti-lock brakes, being too aggressive means the controller overcorrects brake pressure, causing wheel slip or lockup and jerky braking. Too cautious means the brakes respond too slowly, so they fail to build enough pressure quickly, which increases stopping distance. The engineer must tune the trade-off between fast, firm braking and stable, controllable braking.
+
+### pid_playground_terms
+
+The P term reacted first because it responds instantly to the current error. When I dragged the target, the distance to the target jumped, so the proportional output changed immediately.
+
+The I term helped eliminate the final gap because it accumulates past error over time and keeps adjusting the command until the steady-state error is driven to zero. The D term mainly damped the approach by reacting to how fast the error was changing.
+
+### odom_background_wheels
+
+It turns left because dR−dL is positive (6 cm − 0 = 6 cm), so dθ is 6/L, which is positive. A positive dθ means the robot rotates counterclockwise, which is a left turn.
+
+### m1_prediction
+
+With too little Kp, I expect the arm to respond sluggishly and slowly: it will move slowly toward the target, may never reach it, and will likely stop short. With too little Kd, I expect the arm to overshoot the target and oscillate around it. The motion will be underdamped, so it should take a longer time to settle.
+
+### m1_arm_tuning
+
+I predicted that too little Kp would make the arm sluggish and leave it short of the target, while too little Kd would cause overshoot and oscillation. That matched the testing: with low Kp = 1.0, the shoulder sagged and held a steady error, and with low Kd = 0.6, both joints oscillated around the target before settling. I changed both controllers to Kp = 6.0, Ki = 0.9, Kd = 1.3 separately, one at a time. Raising Kp​ made each joint move faster; increasing Kd ​damped the overshoot and made it settle faster, and the small Ki​ corrected the remaining steady offset such that the tip gap showed 0px.
+Gravity compensation made it much faster for both joints to settle. It reduced the steady command needed to hold the second link, so the shoulder no longer sagged under gravity and needed less integral action to correct the error.
+
+### m2_prediction
+
+The estimated forward distance will be larger than the actual forward motion, so x will be overestimated. The estimated sideways distance will be smaller than the actual strafe motion, so y will be underestimated.
+In other words, the robot will think it moved farther forward and less sideways than it really did.
+
+### m2_analysis
+
+I predicted that with the forward pod scale too large and the strafe pod scale too small, the estimate would overestimate forward motion and underestimate sideways motion, so the final pose would be skewed in x and y.
+
+The forward scale changed how many inches are assigned to each forward-pod tick. Increasing it made the robot estimate more forward travel per tick, while decreasing it made the estimate smaller. In the test, with both pods at 0.0500 in/tick, the odom pose matched the true pose (60.0, 23.2) and the error was 0.0 in.
+
+The sideways pod is needed because this is a holonomic robot, meaning it can move in all directions without needing to change heading. A forward-only odometry pod cannot measure that sideways motion, so without the perpendicular pod the y estimate would be wrong.
+
+Remaining drift can still happen after calibration because wheel slip, floor friction, uneven surfaces, sensor noise, and small nonlinearities mean the real distance per tick is not perfectly constant. The test showed a max error of 0.00 in and a final error of 0.00 in, so the calibration was perfect, but in general, some drift can remain because odometry is only an estimate that accumulates error over time.
+
+### m3_prediction
+
+Increasing speed may make tracking error larger because the controller has less time to correct heading errors, so the robot could overshoot turns, cut corners, and swing wider than the intended path. Too little derivative control may cause heading overshoot and oscillation, making the robot weave instead of following the curve smoothly. Therefore, pedestrian clearance is smaller near the waypoints, increasing the risk of getting too close to people.
+
+### m3_technical
+
+I predicted that increasing speed and using too little Kd control would raise tracking error and shrink pedestrian clearance. The drive shows that at 0.34 m/s with heading Kp = 2.7, Ki = 0.15, Kd = 0.65, the robot stayed within the limits, with mean path error 0.01 m, max path error 0.07 m, closest approach 0.36 m, and all 4 waypoints reached. 
+
+The robot computes the next route point by taking the vector from its current estimated pose to the next waypoint and turning that into a desired heading, θ desired = atan2(Δy,Δx). The heading error is θ desired − θ current. The PID changes steering based on that error. Kp reacts to the current heading error, Ki accumulates past heading error to remove a persistent bias, and Kd damps the rate of change so the robot does not oscillate and helps it settle faster. The output commands the steering or wheel-speed difference. The green and orange paths showed that if the wheel-radius estimate is wrong, odometry converts encoder ticks into the wrong distance. The controller can be well tuned and still follow the wrong physical path because it is steering relative to a drifted pose estimate; thus, the estimated path will be off.
+
+### m3_human
+
+The consequential failure is the robot coming too close to a pedestrian or failing to stop, which could cause injury or force someone to move out of the way. I would require at least 0.35 m clearance in normal operation and a lower speed in crowded areas, which can result in slower deliveries but protects pedestrians from getting hurt.
+
+Responsibility belongs to the engineering team because they choose the gains, speed limits, route planning rules, and verify testing before the robot is allowed around people.
+
+### final_reflection
+
+Working on these missions changed how I think about robotics. I came in seeing PID mostly as tuning numbers until a time graph looked good. By the end, I saw each gain as a decision about how a physical system behaves.
+
+Mission 3 was the most motivating because it connected PID and odometry into real path planning and navigation. Drawing a route around pedestrians, tuning heading PID and odometry, and checked that the robot moves through the path within its clearances.
+
+This activity increased my interest in robotics and control work. I like that it combines math, code, hardware, and judgment. I also see more value in connecting robotics to human and ethical considerations, because choices like PID values, speed limits, and clearance have a direct impact on how humans will perceive robots and how they interact with and move around the environment. What stood out most was that, with PID tuning, small changes in PID values were visible in behavior. Closed-loop feedback systems can use error for correction in real time, and we as engineers can fine-tune our control system so that our robot's motion feels safe, smooth, and predictable to a person nearby.
+
+## Mission explanations
+
+### mission_1
+
+**prediction**: With too little Kp, I expect the arm to respond sluggishly and slowly: it will move slowly toward the target, may never reach it, and will likely stop short. With too little Kd, I expect the arm to overshoot the target and oscillate around it. The motion will be underdamped, so it should take a longer time to settle.
+
+**tuning_analysis**: I predicted that too little Kp would make the arm sluggish and leave it short of the target, while too little Kd would cause overshoot and oscillation. That matched the testing: with low Kp = 1.0, the shoulder sagged and held a steady error, and with low Kd = 0.6, both joints oscillated around the target before settling. I changed both controllers to Kp = 6.0, Ki = 0.9, Kd = 1.3 separately, one at a time. Raising Kp​ made each joint move faster; increasing Kd ​damped the overshoot and made it settle faster, and the small Ki​ corrected the remaining steady offset such that the tip gap showed 0px.
+Gravity compensation made it much faster for both joints to settle. It reduced the steady command needed to hold the second link, so the shoulder no longer sagged under gravity and needed less integral action to correct the error.
+
+### mission_2
+
+**prediction**: The estimated forward distance will be larger than the actual forward motion, so x will be overestimated. The estimated sideways distance will be smaller than the actual strafe motion, so y will be underestimated.
+In other words, the robot will think it moved farther forward and less sideways than it really did.
+
+**calibration_analysis**: I predicted that with the forward pod scale too large and the strafe pod scale too small, the estimate would overestimate forward motion and underestimate sideways motion, so the final pose would be skewed in x and y.
+
+The forward scale changed how many inches are assigned to each forward-pod tick. Increasing it made the robot estimate more forward travel per tick, while decreasing it made the estimate smaller. In the test, with both pods at 0.0500 in/tick, the odom pose matched the true pose (60.0, 23.2) and the error was 0.0 in.
+
+The sideways pod is needed because this is a holonomic robot, meaning it can move in all directions without needing to change heading. A forward-only odometry pod cannot measure that sideways motion, so without the perpendicular pod the y estimate would be wrong.
+
+Remaining drift can still happen after calibration because wheel slip, floor friction, uneven surfaces, sensor noise, and small nonlinearities mean the real distance per tick is not perfectly constant. The test showed a max error of 0.00 in and a final error of 0.00 in, so the calibration was perfect, but in general, some drift can remain because odometry is only an estimate that accumulates error over time.
+
+### mission_3
+
+**technical_analysis**: I predicted that increasing speed and using too little Kd control would raise tracking error and shrink pedestrian clearance. The drive shows that at 0.34 m/s with heading Kp = 2.7, Ki = 0.15, Kd = 0.65, the robot stayed within the limits, with mean path error 0.01 m, max path error 0.07 m, closest approach 0.36 m, and all 4 waypoints reached. 
+
+The robot computes the next route point by taking the vector from its current estimated pose to the next waypoint and turning that into a desired heading, θ desired = atan2(Δy,Δx). The heading error is θ desired − θ current. The PID changes steering based on that error. Kp reacts to the current heading error, Ki accumulates past heading error to remove a persistent bias, and Kd damps the rate of change so the robot does not oscillate and helps it settle faster. The output commands the steering or wheel-speed difference. The green and orange paths showed that if the wheel-radius estimate is wrong, odometry converts encoder ticks into the wrong distance. The controller can be well tuned and still follow the wrong physical path because it is steering relative to a drifted pose estimate; thus, the estimated path will be off.
+
+**human_centered_analysis**: The consequential failure is the robot coming too close to a pedestrian or failing to stop, which could cause injury or force someone to move out of the way. I would require at least 0.35 m clearance in normal operation and a lower speed in crowded areas, which can result in slower deliveries but protects pedestrians from getting hurt.
+
+Responsibility belongs to the engineering team because they choose the gains, speed limits, route planning rules, and verify testing before the robot is allowed around people.
