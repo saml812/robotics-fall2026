@@ -1,0 +1,7 @@
+# Final synthesis
+
+In this lab, I explored what a measurement tells us, how we estimate from it, and who is affected when those estimates are wrong. 
+In mission 1, I analyzed how noise causes measurements to vary, while bias introduces a systematic offset. Increasing the sample size reduces variance but does not eliminate bias, demonstrating that precision does not necessarily mean accuracy. 
+In mission 2, I evaluated moving average and median filters to reduce measurement errors. Although a moving average smooths noise, a larger window increases response delay when conditions change abruptly. For example, increasing the window size from 3 to 11 raised the delay from 1.30 s to 2.05 s. To balance accuracy and responsiveness, I selected a median filter with a window size of 3 and a fusion weight of 0.50, achieving the lowest RMSE of 0.132 m with an acceptable delay of 0.70 s. 
+Mission 3 demonstrated that the best estimation policy depends on the application and the consequences of errors. In the warehouse scenario, my revised policy reduced unnecessary stops from 4.08% to 0%. In contrast, a different policy for the assistive robot maintained a 0% false-safe rate by using a higher threshold and a stop-on-missing rule. An unnecessary stop in a warehouse mainly costs time, while moving toward a person under uncertain conditions could cause serious injury.
+The best policy is not simply the one that minimizes error; it is the one that balances accuracy, responsiveness, and safety according to the consequences of being wrong.

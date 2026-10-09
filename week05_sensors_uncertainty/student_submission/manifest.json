@@ -1,0 +1,36 @@
+{
+  "files": {
+    "autosave/responses.json": "839acf64ddbc920a9c402528f36577aaab1a89936f7684b00d510804e9d28c4a",
+    "autosave/responses.md": "f6c0e004b3f8d5389da3861b59356020a970cb79fb434656d586bc5105e95d97",
+    "autosave/responses.recovery.8a8e6b57157a422d9fd88ce8a156a228.json": "4690ab8c4c7e254343fbcf3514a96152a18cf10bd05aa442ab3cfd1860647056",
+    "autosave/responses.recovery.964b78ab0e964855937e63a3b5982836.json": "8e3a8bba0ac837ad47e29af9ae24b8476313a0a8a45b0811f36891d8b3ef5aed",
+    "final_reflection.md": "029ad5037c5a6316b0d522b74fa60392f77dd1c7128feb6a34c4741cc43bfecf",
+    "final_synthesis.md": "8f786559b75af8aead7a1f1175071faf18230a373d0a8e0a4f3c7c1b5a53186f",
+    "mission_1/evidence.png": "350def96a2cd57caa058ffb8550ea68bb03ca50bf06f72fe0f47c82627a1d18e",
+    "mission_1/explanation.md": "19529126421790f8b47922eb83e7c07f7e2162de587e90e8e913dacfed38a0d2",
+    "mission_1/measurements.csv": "1a3408766719f56e674dcce4e55f09ee17d06e3b8cecda71d37b1a8b184b24e7",
+    "mission_1/submission.json": "3f83ed2b90a74e8de2270398981b46e25fbbf2e649111c3243d85f71f49386f7",
+    "mission_2/evidence.png": "0077859b0ef60cfbaa7f952dda312555b594a82a8ce63f2a765d75c7cbcc8b78",
+    "mission_2/explanation.md": "078195b77773fa35f8a88bde59dff7aa9166e53432e4ab11095b8e8e425fc6e5",
+    "mission_2/measurements.csv": "b97c0347671c53002e332710293a805341564d08a47cf43cf8545f5de7a161d4",
+    "mission_2/submission.json": "629321e64f36558859ad9cee8fd972adb8e05983ed999ace3423512b76243fa6",
+    "mission_3/explanation.md": "b888bb10f9ee764a0f3ee6bc9878704c656ed29ff5e624991e195ab3b2bc8f4f",
+    "mission_3/measurements.csv": "8c75d2d8469d72e5f24fd9c2c8ee9fa07348fa20ffec2901a80708a9bf1a8998",
+    "mission_3/submission.json": "408f3a2e0702455e89eba1b25f4c9eff8d9dd32c354825ee171c3efc6f5a03f9",
+    "student.json": "96ca6ee2b778f92381c4db5ee9c2c762ba6fae12af2d497928ed5297880883e2"
+  },
+  "generated_at": "2026-10-09T02:33:51.834997+00:00",
+  "lab_id": "week05_sensors_uncertainty",
+  "mission_signatures": {
+    "mission_1": "5985496fdf71a0b6",
+    "mission_2": "2c387f1e0a36939c",
+    "mission_3": "e5e488db04e3618b"
+  },
+  "response_signature": "ff535d89893c2ad9",
+  "schema_version": 2,
+  "student": {
+    "course_id": "CSCI39536",
+    "email": "sam.lin45@login.cuny.edu",
+    "name": "Sam Lin"
+  }
+}
