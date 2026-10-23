@@ -1,0 +1,7 @@
+# Final synthesis
+
+By combining LiDAR measurements with motion estimates, the TurtleBot3 creates an occupancy grid. However, these maps do have limitations in what the robot can know. The LiDAR can only detect line-of-sight obstacles, creating shadows beneath the tables. It cannot know if these spaces are truly empty without physically moving to scan from a new angle or moving underneath tables if possible.
+
+Motion-estimate error is the other major issue. In Mission 1, the robot wandered, resulting in a lower known area (81.46 m²) but a high quality score of 85.4. The walls were mostly thin and straight, which shows small accumulated odometry drift. In Mission 2 which took around 40 minutes, the back and forth sweeping increased LiDAR coverage to 92.25 m². However, the longer driving time accumulated greater odometry error. The algorithm failed to fully correct this when revisits scanned areas. As a result, the central corridor became jagged, and the walls appeared doubled and skewed.
+
+Therefore, I would trust Mission 1 more for a later navigation task. While Mission 2 has better overall coverage, its structural integrity is compromised by motion-estimate error. The "smeared" or doubled walls in Mission 2 could cause a path planner to misjudge doorway widths or perceive false obstacles, whereas Mission 1 provides a more reliable, albeit incomplete, geometric skeleton of the house.

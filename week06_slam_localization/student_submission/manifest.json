@@ -1,0 +1,35 @@
+{
+  "files": {
+    "autosave/responses.json": "75e66f5e5e50f2c40bbf4520798077c018832cb82e4adf08deed8293766fb0f3",
+    "autosave/responses.md": "5aa4757bd75da498f842d9da80887b02c380b80f287d608b266eefa174c3bb8f",
+    "final_reflection.md": "5c178ac46aeb389766a2326aa3f601cd10894d301655b5b6ff55e9d2953194a0",
+    "final_synthesis.md": "1eccc081ffd87bb5d9aca9118361848070bc4adf00b0a74eaab7423f79063b67",
+    "mission_1/analysis.json": "b0c60998583a9c9bf002ebd12dd3f6c35038dc311e9ad08e52c6c2e285a81ecc",
+    "mission_1/evidence.json": "bc34decfdb1f2c73b782d7fdc4b5654e622f598416ed49f75a083e7175fec95b",
+    "mission_1/explanation.md": "67d787d0142efd590ae73b7c31b08bf71daa12665c7e2031e0b58fdf4f1b79a9",
+    "mission_1/map.pgm": "2a01446e2d277da2bc6eceb8aa8dac0404054cfb01b89483230c6d00bcf64ecc",
+    "mission_1/map.yaml": "c48aa12317cc89f51a250320d66ce5a97b4b93e2a7477704588328c2113d8463",
+    "mission_1/rviz_screenshot.png": "bc339ef113988d1f9d49196e598f563f2d2351176aa7c63bc18edf30f35f7b07",
+    "mission_1/submission.json": "37c3a27e35ac51c53d4650e702368f2e4e6338a6c79ec9868da5682a070701fc",
+    "mission_2/analysis.json": "8243a5faa60c8af5b84e1b13e26dd8f6b79020d8fd565d9c9e1624e72123aff3",
+    "mission_2/evidence.json": "9f03f85ff9f0290b0865bb8d2ee893ae8cb9b5034706599399be0f608a0cf87d",
+    "mission_2/explanation.md": "1965fb2a4754cedff83aa9f3d37fedd22c18de73ab1acbb4aba14e19e3379071",
+    "mission_2/map.pgm": "cc65b2dacd3023b9e9a645fd6d51a28df716af0e15c709628b8893164ac1a4bf",
+    "mission_2/map.yaml": "9edc40c7fcb67591c83ab1a7052cce0c711285169ea3b3c0c9c8d445c486da9f",
+    "mission_2/rviz_screenshot.png": "37c665f4b4830b132456dd3ba65a33206648c3d3eb3caf790d16d19a140e0735",
+    "mission_2/submission.json": "956c936539c32449afc589ffd1e398a3830be71d86586b06cd691a23e4abccba",
+    "student.json": "c193b8d5f75d2c9a1d2bc691acd1df38f426ba6fb18cbe2092e041266c3eff47"
+  },
+  "generated_at": "2026-10-23T05:53:00.175916+00:00",
+  "lab_id": "week06_slam_localization",
+  "mission_signatures": {
+    "mission_1": "9e6480625810c17f",
+    "mission_2": "30467f9d3b5bdc83"
+  },
+  "response_signature": "0464102f66b982ca",
+  "schema_version": 2,
+  "student": {
+    "email": "sam.lin45@login.cuny.edu",
+    "name": "Sam Lin"
+  }
+}
