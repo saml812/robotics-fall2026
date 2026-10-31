@@ -1,0 +1,11 @@
+# mission_1
+
+## diagnosis
+normal_1: Yes, the box is on the mug. With my locked rule (H 0-35, S 70-255, V 25-110, kernel 3, min area 300) the bright wood is mostly above V=110, so it drops out of the mask. The darker brown mug body and its shadow stay white, and after morphology they form contour 5 (area about 13,549 px^2, circularity 0.30, centroid near (314, 68)). That is the largest eligible region, so it wins and the green box lands on the mug (box matching passed for the normal condition).
+
+dim_1: No, the box is not on the mug. Darkening the whole image pushes the wood desk below V=110 too, so the desk now passes the same rule as the mug. In the mask almost the entire desk is white and it merges with the mug into one huge region, contour 11 (area about 53,722 px^2, circularity only 0.05, centroid near (307, 167) in the middle of the desk). Because the detector picks the largest eligible area, this desk blob wins and the box covers nearly the whole image. The relevant setting is the value upper bound (110): it separated mug from wood only at normal brightness. The presence check still counted this as a TP, but box matching failed for both dim images (box_tp 0, box_fp 2).
+
+## limitations
+I changed only the value (brightness) upper bound, from 180 down to 110. With V up to 180 the orange-brown wood passed along with the mug, so the selected region (contour 11, about 17,577 px^2) was the mug merged with a big patch of desk and the box stretched across the wood to the right edge. Lowering the upper bound removed the brighter wood pixels from the mask, the mug separated from the desk, and the selected contour became the mug and its shadow (contour 5, about 13,549 px^2), so the box tightened onto the mug.
+
+Limitation: the rule only knows color and brightness, not "mug". It worked because this mug happens to be darker than this desk under this lighting. A white, blue or bright-colored cup would fall outside the hue/value range entirely, and a dark background or dim lighting (like dim_1) makes the background pass the same thresholds so the largest-area rule picks the background. It also still includes the mug's shadow, and it would pick any other dark brown object of similar size. A fixed threshold does not transfer to a different cup, background or lighting without retuning.
