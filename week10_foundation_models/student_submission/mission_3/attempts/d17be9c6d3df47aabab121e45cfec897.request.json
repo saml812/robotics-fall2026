@@ -1,0 +1,29 @@
+{
+  "job_id": "d17be9c6d3df47aabab121e45cfec897",
+  "kind": "language",
+  "case": "custom",
+  "prompt": "Reach (11,1). Never reply STOP before the current position is [11, 1]. Never reply LEFT. In row 1 with column below 7, reply RIGHT. In column 7, reply DOWN until row 7. In row 7 with column 7 or more, reply RIGHT until column 11. In column 11, reply UP. Otherwise reply UP.",
+  "phase": "custom",
+  "parent_id": null,
+  "requested_at": "2026-11-13T02:10:41.587102+00:00",
+  "comparison_ids": [
+    "b0a6bff3e11140d6beef4afb3d790266",
+    "661639dbd7224d0384b9ab7d9629fef9",
+    "aeb092eebc5d41bdabda1c6b9dd58a45"
+  ],
+  "task": "robot",
+  "robot_state": {
+    "position": [
+      1,
+      7
+    ],
+    "step": 0,
+    "history": [],
+    "finished": false,
+    "goal_reached": false,
+    "first_goal_step": null,
+    "last_feedback": "No previous action.",
+    "last_decision": null
+  },
+  "simulator_contract": "8da30a943bd97ee39237aa05e8e6800fecdecbef3ce692d7d4e48f851679060f"
+}

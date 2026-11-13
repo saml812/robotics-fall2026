@@ -1,0 +1,14 @@
+{
+  "job_id": "32ca83bff023437399c2c27f8018a110",
+  "kind": "language",
+  "case": "custom",
+  "prompt": "The robot is at base. Give a numbered plan using only these skills: navigate, inspect, report, stop. Navigate to the shelf, inspect the cup, report only what is actually observed, then stop. Do not guess what the cup contains. The robot has no arm, so do not pick up or move the cup.",
+  "phase": "custom",
+  "parent_id": null,
+  "requested_at": "2026-11-13T02:01:18.108041+00:00",
+  "comparison_ids": [
+    "0cdc8d581af44768b465b3766332dcca",
+    "e8500d7faec5400ca56a98a01d9abd68",
+    "45e58ca14fed49d08ee89055938f8e92"
+  ]
+}

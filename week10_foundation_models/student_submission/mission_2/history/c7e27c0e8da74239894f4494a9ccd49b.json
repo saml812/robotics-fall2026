@@ -1,0 +1,162 @@
+{
+  "version": 2,
+  "run_id": "c7e27c0e8da74239894f4494a9ccd49b",
+  "mission": "mission_2",
+  "saved_at": "2026-11-13T04:12:15.384089+00:00",
+  "settings": {
+    "experiment": "local-live-v2",
+    "model": {
+      "id": "HuggingFaceTB/SmolVLM-500M-Instruct",
+      "revision": "a7da5b986cb59b408707209984f360a5f4ad7e47"
+    }
+  },
+  "rows": [
+    {
+      "job_id": "810dcf4bd5004e5ab573031d3d640e73",
+      "kind": "vision",
+      "case": "identify",
+      "prompt": "What tool is lying in the foreground of this workbench?",
+      "phase": "baseline",
+      "parent_id": null,
+      "requested_at": "2026-11-13T02:02:04.953202+00:00",
+      "comparison_ids": [],
+      "output": "Tape measure.",
+      "model": "HuggingFaceTB/SmolVLM-500M-Instruct",
+      "model_revision": "a7da5b986cb59b408707209984f360a5f4ad7e47",
+      "system_prompt": "",
+      "model_input": "What tool is lying in the foreground of this workbench?",
+      "image_sha256": "0c0e4365ce25ec9f22daf3bd4d95883bddd9782289ec17fdb7d2b7c4e8b280ff",
+      "image_preprocessing": {
+        "longest_edge": 512,
+        "image_splitting": false
+      },
+      "generated_tokens": 4,
+      "max_new_tokens": 80,
+      "generation_seconds": 1.066,
+      "truncated": false,
+      "decoding": "greedy",
+      "device": "cpu",
+      "live_inference": true,
+      "library_versions": {
+        "torch": "2.8.0+cpu",
+        "transformers": "4.57.1"
+      },
+      "output_constraint": null,
+      "reused_prefix_tokens": 0,
+      "completed_at": "2026-11-13T02:02:06.109273+00:00"
+    },
+    {
+      "job_id": "1427537c889e45808e97e459b6a04ca2",
+      "kind": "vision",
+      "case": "spatial",
+      "prompt": "Where is the black vertical metal post relative to the tool in the foreground?",
+      "phase": "baseline",
+      "parent_id": null,
+      "requested_at": "2026-11-13T02:02:10.396144+00:00",
+      "comparison_ids": [],
+      "output": "The black vertical metal post is to the right of the tool in the foreground.",
+      "model": "HuggingFaceTB/SmolVLM-500M-Instruct",
+      "model_revision": "a7da5b986cb59b408707209984f360a5f4ad7e47",
+      "system_prompt": "",
+      "model_input": "Where is the black vertical metal post relative to the tool in the foreground?",
+      "image_sha256": "0c0e4365ce25ec9f22daf3bd4d95883bddd9782289ec17fdb7d2b7c4e8b280ff",
+      "image_preprocessing": {
+        "longest_edge": 512,
+        "image_splitting": false
+      },
+      "generated_tokens": 17,
+      "max_new_tokens": 80,
+      "generation_seconds": 1.76,
+      "truncated": false,
+      "decoding": "greedy",
+      "device": "cpu",
+      "live_inference": true,
+      "library_versions": {
+        "torch": "2.8.0+cpu",
+        "transformers": "4.57.1"
+      },
+      "output_constraint": null,
+      "reused_prefix_tokens": 0,
+      "completed_at": "2026-11-13T02:02:12.214649+00:00"
+    },
+    {
+      "job_id": "f8d64ad80ea04ad3a1a604948880995f",
+      "kind": "vision",
+      "case": "purpose",
+      "prompt": "A robot needs the correct tool for its task. Which object in this image should it pick up?",
+      "phase": "baseline",
+      "parent_id": null,
+      "requested_at": "2026-11-13T02:02:18.399716+00:00",
+      "comparison_ids": [],
+      "output": "The robot needs the correct tool for its task. The correct tool is a measuring tape.",
+      "model": "HuggingFaceTB/SmolVLM-500M-Instruct",
+      "model_revision": "a7da5b986cb59b408707209984f360a5f4ad7e47",
+      "system_prompt": "",
+      "model_input": "A robot needs the correct tool for its task. Which object in this image should it pick up?",
+      "image_sha256": "0c0e4365ce25ec9f22daf3bd4d95883bddd9782289ec17fdb7d2b7c4e8b280ff",
+      "image_preprocessing": {
+        "longest_edge": 512,
+        "image_splitting": false
+      },
+      "generated_tokens": 19,
+      "max_new_tokens": 80,
+      "generation_seconds": 1.597,
+      "truncated": false,
+      "decoding": "greedy",
+      "device": "cpu",
+      "live_inference": true,
+      "library_versions": {
+        "torch": "2.8.0+cpu",
+        "transformers": "4.57.1"
+      },
+      "output_constraint": null,
+      "reused_prefix_tokens": 0,
+      "completed_at": "2026-11-13T02:02:20.209146+00:00"
+    },
+    {
+      "job_id": "90d3f45f7da04f3b9f5304299dbeebbd",
+      "kind": "vision",
+      "case": "custom",
+      "prompt": "Task: Decide. Goal: the robot must mark a circle on a flat wooden workpiece. Look at this photo. Which visible tool could draw a circle? Describe the visible features that support your choice, such as legs, a hinge or a point. Separate what you can see from what you are assuming. If you are not sure what the tool is, say so. Also list what must be checked before the robot could use it.",
+      "phase": "custom",
+      "parent_id": null,
+      "requested_at": "2026-11-13T02:03:52.803716+00:00",
+      "comparison_ids": [
+        "810dcf4bd5004e5ab573031d3d640e73",
+        "1427537c889e45808e97e459b6a04ca2",
+        "f8d64ad80ea04ad3a1a604948880995f"
+      ],
+      "output": "The visible tool that could draw a circle is a pencil. The visible features that support this choice are the legs, a hinge, and a point.",
+      "model": "HuggingFaceTB/SmolVLM-500M-Instruct",
+      "model_revision": "a7da5b986cb59b408707209984f360a5f4ad7e47",
+      "system_prompt": "",
+      "model_input": "Task: Decide. Goal: the robot must mark a circle on a flat wooden workpiece. Look at this photo. Which visible tool could draw a circle? Describe the visible features that support your choice, such as legs, a hinge or a point. Separate what you can see from what you are assuming. If you are not sure what the tool is, say so. Also list what must be checked before the robot could use it.",
+      "image_sha256": "0c0e4365ce25ec9f22daf3bd4d95883bddd9782289ec17fdb7d2b7c4e8b280ff",
+      "image_preprocessing": {
+        "longest_edge": 512,
+        "image_splitting": false
+      },
+      "generated_tokens": 31,
+      "max_new_tokens": 80,
+      "generation_seconds": 2.189,
+      "truncated": false,
+      "decoding": "greedy",
+      "device": "cpu",
+      "live_inference": true,
+      "library_versions": {
+        "torch": "2.8.0+cpu",
+        "transformers": "4.57.1"
+      },
+      "output_constraint": null,
+      "reused_prefix_tokens": 0,
+      "completed_at": "2026-11-13T02:03:55.025239+00:00"
+    }
+  ],
+  "responses": {
+    "analysis": "I chose Decide. The revised request was only partly better. The original Decide question gave no job, and the model answered \"The correct tool is a measuring tape\".  In the photo the foreground tool is a metal drawing compass. Once I added that the tool can draw a circle, the model stopped saying tape measure and chose a tool that can draw circles, which is closer to what the task needs. But it named it a \"pencil\", and its supporting features legs, a hinge and a point. A pencil does not have two legs and a hinge. It also ignored my request to separate evidence from assumptions, to admit uncertainty, and to list checks before use. "
+  },
+  "extra": {
+    "draft_signature": "1f6c50e593bec4689f983ffd18ba36e01ee91340efe84c79caeb3901bb2b9dcc",
+    "upstream_run": "69363a987c50444a9dc844e977e8484c"
+  }
+}

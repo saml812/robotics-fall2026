@@ -1,0 +1,29 @@
+{
+  "job_id": "7566097b49504d9b801782140ea2e9b5",
+  "kind": "language",
+  "case": "custom",
+  "prompt": "Reach the blue target crate at (11,1). First action: UP. Then repeat your previous action as long as that neighbor cell is free. When it is a wall, turn: after UP choose RIGHT. After RIGHT choose DOWN, but choose UP if DOWN is a wall. After DOWN choose RIGHT. When the current position is [11, 1], choose STOP.",
+  "phase": "custom",
+  "parent_id": null,
+  "requested_at": "2026-11-13T02:09:08.945726+00:00",
+  "comparison_ids": [
+    "b0a6bff3e11140d6beef4afb3d790266",
+    "661639dbd7224d0384b9ab7d9629fef9",
+    "aeb092eebc5d41bdabda1c6b9dd58a45"
+  ],
+  "task": "robot",
+  "robot_state": {
+    "position": [
+      1,
+      7
+    ],
+    "step": 0,
+    "history": [],
+    "finished": false,
+    "goal_reached": false,
+    "first_goal_step": null,
+    "last_feedback": "No previous action.",
+    "last_decision": null
+  },
+  "simulator_contract": "8da30a943bd97ee39237aa05e8e6800fecdecbef3ce692d7d4e48f851679060f"
+}

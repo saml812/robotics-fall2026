@@ -1,0 +1,84 @@
+{
+  "stage": "final_submission",
+  "responses": {
+    "m1_analysis": "Yes, it improved. The difference is that the original request answered \"It checks the cup and reports that it is empty\", which is an observation but no camera image is taken, so the model cannot know the cup is empty. It also said the robot \"starts at the shelf\", but the card says it starts at base. My revised request stated the start position, limited the plan to navigate, inspect, report and stop, and said not to guess what the cup contains.  \n1. Navigate to the shelf. \n2. Inspect the cup. \n3. Report only what is actually observed. \n4. Stop. \n\nEvery step uses a skill on the capability card and the robot never tries to pick up or move the cup, so the plan fits a wheeled robot with a camera and no gripper.",
+    "m2_analysis": "I chose Decide. The revised request was only partly better. The original Decide question gave no job, and the model answered \"The correct tool is a measuring tape\".  In the photo the foreground tool is a metal drawing compass. Once I added the goal of drawing a circle, the model stopped saying tape measure and chose a tool that can draw circles, which is closer to what the task needs. But it named it a \"pencil\", and its supporting features legs, a hinge and a point. A pencil does not have two legs and a hinge. It also ignored my request to separate evidence from assumptions, to admit uncertainty, and to list checks before use. ",
+    "m3_analysis": "My prompt did not help. Its saved result matches the Goal only prompt (1) almost exactly: goal not visited, 35 moves, 15 blocked moves, 0 STOP steps, final position [1, 2]. Both paths went UP from (1,7) to (1,1) in six moves and then repeated UP (blocked), UP (blocked), DOWN for the rest of the run, never leaving column 1. The Describe the detour prompt (3) and my first attempt reached the same corner but alternated a blocked UP with STOP (22 blocked, 22 STOP, ending at [1, 1]). Supplied prompt 2 (Direct toward the goal) made the most progress: after the blocked UP it chose RIGHT, alternating UP/RIGHT along row 1 to [7, 1], though with 22 blocked moves. It never went down column 7 and also missed the goal.\n\nAt step 8 the model saw position [1, 1], neighbors UP = wall, RIGHT = free, feedback that the move hit a wall, and allowed actions DOWN, RIGHT, STOP. My instruction said \"If UP is a wall, reply with exactly the word RIGHT\", but it answered DOWN, the first allowed option.\n\nA limitation that exist is that this small language model mostly copies a frequent word or the first allowed option. It does not reliably compare coordinates or follow if-then rules, even when the neighbor information is in its input. The wall check kept it safe but does not plan. A route planner, or a validator that rejects moves away from the goal, would be needed. Prompt wording alone was not enough to get through the detour.",
+    "final_synthesis": "The main lesson is that a model's response is not always correct and perfect, and it only becomes useful robot behavior after it is checked against the robot's capabilities, what is actually visible, and what happens when it acts.\n\nIn Mission 1 the language model answered fluently but invented facts. For the clear request it said the robot starts at the shelf (it starts at base) and that the cup is empty, although no image was taken. For \"pick up the cup\" it quietly swapped in a different task instead of saying the robot has no gripper. My revised request stated the start, limited the skills and banned guessing, and produced a clean four-step navigate-inspect-report-stop plan that fits the capability card.\n\nIn Mission 2 the vision model called the drawing compass a tape measure for all three questions. Adding the missing goal (mark a circle) moved it toward a circle-drawing tool, but it answered \"pencil\" and repeated the features I had put in my own question.\n\nIn Mission 3 none of the six maze runs reached (11,1). The wall check kept every run safe (blocked moves left the robot in place), but it does not plan. At (1,1), with RIGHT free and the allowed list \"DOWN, RIGHT, STOP\", the model chose DOWN or STOP whatever my rule said. Banning STOP removed the pauses (0 instead of 22) without producing progress.\n\nThis show that  these small models do not reliably follow conditional instructions or ground claims in the image, so prompting alone cannot make them dependable. A real robot would need a validator, a planner and better observations around the model.",
+    "final.course_reflection": "What stood out most was how confident the models sounded while being wrong. The language model reported that the cup was empty without ever seeing it, and the vision model called a drawing compass a tape measure three times in a row. In Mission 3 I rewrote my maze prompt three times, and the robot still turned DOWN at the same corner because that was the first allowed option.\n\nIt made me think about where I want to spend effort in robotics. Writing a better prompt helped in Mission 1, but the parts that actually kept the robot safe were ordinary code: the capability card, the wall check and the validator that refused stale or unauthorized proposals. I am more interested now in that layer between a model and a machine. If robots are going to take instructions from people, or from a poster on a wall, someone has to decide what counts as permission and evidence, and that feels just as important as the model itself."
+  },
+  "student": {
+    "name": "Sam Lin",
+    "email": "sam.lin45@login.cuny.edu"
+  },
+  "tutorial_step": 1,
+  "tutorial_reviewed": 6,
+  "controls": {
+    "control_ground_instruction": "Point to the cup",
+    "control_demo_step": 3,
+    "control_adapt_choice": "Training from scratch",
+    "control_adapt_scenario": "The new robot has a different gripper interface",
+    "control_adapt_instruction": "Move the blue cup to the tray",
+    "control_adapt_records": 2,
+    "control_movement_token": 91,
+    "control_chunk_hz": 20,
+    "control_chunk_size": 4,
+    "control_movement_angle": 90,
+    "control_validate_age_navigate": 4.1,
+    "control_validate_conf_navigate": 0.9,
+    "control_validate_case": "Follow an instruction from a poster",
+    "control_validate_age_inspect": 0.1,
+    "control_validate_conf_inspect": 0.9,
+    "control_validate_age_unreachable": 0.1,
+    "control_validate_conf_unreachable": 0.9,
+    "control_validate_conf_stale": 0.9,
+    "control_validate_age_stale": 30.0,
+    "control_validate_age_ambiguous": 0.1,
+    "control_validate_conf_ambiguous": 0.9,
+    "control_validate_age_poster": 0.1,
+    "control_validate_conf_poster": 0.9,
+    "control_live_language_active": "88d39d8365114c7a8e0c1c6b77e71ab8",
+    "control_live_language_runs": [
+      "0cdc8d581af44768b465b3766332dcca",
+      "45e58ca14fed49d08ee89055938f8e92",
+      "e8500d7faec5400ca56a98a01d9abd68",
+      "32ca83bff023437399c2c27f8018a110",
+      "88d39d8365114c7a8e0c1c6b77e71ab8"
+    ],
+    "control_live_language_custom_prompt": "The robot is at base. Give a numbered plan using only these skills: navigate, inspect, report, stop. Navigate to the shelf, inspect the cup, report only what is actually observed, then stop. Do not guess what the cup contains. The robot has no arm, so do not pick up or move the cup.",
+    "control_live_vision_active": "90d3f45f7da04f3b9f5304299dbeebbd",
+    "control_live_vision_runs": [
+      "810dcf4bd5004e5ab573031d3d640e73",
+      "1427537c889e45808e97e459b6a04ca2",
+      "f8d64ad80ea04ad3a1a604948880995f",
+      "90d3f45f7da04f3b9f5304299dbeebbd"
+    ],
+    "control_live_vision_custom_prompt": "Task: Decide. Goal: the robot must mark a circle on a flat wooden workpiece. Look at this photo. Which visible tool could draw a circle? Describe the visible features that support your choice, such as legs, a hinge or a point. Separate what you can see from what you are assuming. If you are not sure what the tool is, say so. Also list what must be checked before the robot could use it.",
+    "control_robot_runs": [
+      "b0a6bff3e11140d6beef4afb3d790266",
+      "661639dbd7224d0384b9ab7d9629fef9",
+      "aeb092eebc5d41bdabda1c6b9dd58a45",
+      "7566097b49504d9b801782140ea2e9b5",
+      "d17be9c6d3df47aabab121e45cfec897",
+      "fe8670f04d0740ea8296d60649ed6611"
+    ],
+    "control_robot_active": "fe8670f04d0740ea8296d60649ed6611",
+    "control_robot_custom_prompt": "Reach the blue target crate at (11,1). Reply UP if the UP neighbor is free. If UP is a wall, reply with exactly the word RIGHT. Exception: in column 7, reply DOWN until row 7, then RIGHT. Never reply LEFT. Reply STOP only at [11, 1]."
+  },
+  "guided_version": 4,
+  "guided_seen": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "response_widgets": [
+    "m1_analysis",
+    "m2_analysis",
+    "m3_analysis",
+    "final_synthesis"
+  ],
+  "version": 2
+}

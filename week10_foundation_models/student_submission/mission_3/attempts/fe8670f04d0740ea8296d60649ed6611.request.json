@@ -1,0 +1,29 @@
+{
+  "job_id": "fe8670f04d0740ea8296d60649ed6611",
+  "kind": "language",
+  "case": "custom",
+  "prompt": "Reach the blue target crate at (11,1). Reply UP if the UP neighbor is free. If UP is a wall, reply with exactly the word RIGHT. Exception: in column 7, reply DOWN until row 7, then RIGHT. Never reply LEFT. Reply STOP only at [11, 1].",
+  "phase": "custom",
+  "parent_id": null,
+  "requested_at": "2026-11-13T02:12:23.732140+00:00",
+  "comparison_ids": [
+    "b0a6bff3e11140d6beef4afb3d790266",
+    "661639dbd7224d0384b9ab7d9629fef9",
+    "aeb092eebc5d41bdabda1c6b9dd58a45"
+  ],
+  "task": "robot",
+  "robot_state": {
+    "position": [
+      1,
+      7
+    ],
+    "step": 0,
+    "history": [],
+    "finished": false,
+    "goal_reached": false,
+    "first_goal_step": null,
+    "last_feedback": "No previous action.",
+    "last_decision": null
+  },
+  "simulator_contract": "8da30a943bd97ee39237aa05e8e6800fecdecbef3ce692d7d4e48f851679060f"
+}

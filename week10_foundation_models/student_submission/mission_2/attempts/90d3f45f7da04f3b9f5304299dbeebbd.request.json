@@ -1,0 +1,14 @@
+{
+  "job_id": "90d3f45f7da04f3b9f5304299dbeebbd",
+  "kind": "vision",
+  "case": "custom",
+  "prompt": "Task: Decide. Goal: the robot must mark a circle on a flat wooden workpiece. Look at this photo. Which visible tool could draw a circle? Describe the visible features that support your choice, such as legs, a hinge or a point. Separate what you can see from what you are assuming. If you are not sure what the tool is, say so. Also list what must be checked before the robot could use it.",
+  "phase": "custom",
+  "parent_id": null,
+  "requested_at": "2026-11-13T02:03:52.803716+00:00",
+  "comparison_ids": [
+    "810dcf4bd5004e5ab573031d3d640e73",
+    "1427537c889e45808e97e459b6a04ca2",
+    "f8d64ad80ea04ad3a1a604948880995f"
+  ]
+}
