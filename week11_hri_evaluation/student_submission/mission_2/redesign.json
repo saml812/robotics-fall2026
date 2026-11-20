@@ -1,0 +1,6 @@
+{
+  "case": "ambiguous",
+  "phase": "CONFIRM",
+  "message": "I heard the {target} cup. I will not move until you say confirm. Wrong cup? Say the red cup or the blue cup.",
+  "rationale": "In the Ambiguous request baseline, the first event at 0 s was my spoken \"bring me the cup\", but the recognizer transcribed it as \"the red cup\" and the controller selected red (REQUEST, target red, state CONFIRM). The feedback only said \"I understood red. Say confirm or correct the cup.\" That does not make it obvious that the robot chose a cup I never named, and it does not say that nothing will happen until I confirm. In the same trace, two spoken \"confirm\" attempts were missed: one UNRECOGNIZED, and one transcribed as \"the blue cup\". The revised CONFIRM message states the heard color as \"the {target} cup\", says the robot will not move until confirm, and gives the exact correction phrases. The person should understand which cup the robot is about to fetch, that it is still waiting, and how to fix a mishearing before giving permission."
+}
